@@ -1,0 +1,21 @@
+server:
+  port: 10010
+spring:
+  cloud:
+    nacos:
+      server-addr: localhost:8848 #nacos地址
+    gateway:
+      routes:
+        - id: auth-service #唯一标志
+          uri: lb://auth #lb(负载平衡)+注册的服务的名称  或是   http://+地址:端口
+          predicates:
+            - Path=/auth/** #判断是否以auth开头
+        - id: user-service #唯一标志
+          uri: lb://user #lb(负载平衡)+注册的服务的名称  或是   http://+地址:端口
+          predicates:
+            - Path=/user/** #判断是否以auth开头
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway
+
