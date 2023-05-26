@@ -13,7 +13,7 @@ spring:
         - id: user-service #唯一标志
           uri: lb://user #lb(负载平衡)+注册的服务的名称  或是   http://+地址:端口
           predicates:
-            - Path=/user/** #判断是否以auth开头
+            - Path=/user/** #判断是否以user开头
   main:
     web-application-type: reactive
   application:
