@@ -1,6 +1,7 @@
 package com.hsrg.filter;
 
 import com.hsrg.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -53,7 +54,12 @@ public class LoginCheckFilter implements GlobalFilter, Ordered {
         }
 //       5.解析令牌，如果失败，返回错误结果
         try {
-            JwtUtils.parseJWT(jwt);
+            Claims claims = JwtUtils.parseJWT(jwt);
+            if(claims.get("userId")==claims.get("username")){
+                log.info("账号已注销");
+                resp.setStatusCode(HttpStatus.UNAUTHORIZED);
+                return exchange.getResponse().setComplete();
+            }
         } catch (Exception e) {//解析失败
             e.printStackTrace();
             log.info("解析令牌失败，返回未登录错误信息");
