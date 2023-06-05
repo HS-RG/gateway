@@ -18,6 +18,10 @@ spring:
           uri: lb://file #lb(负载平衡)+注册的服务的名称  或是   http://+地址:端口
           predicates:
             - Path=/file/** #判断是否以file开头
+        - id: comment-service #唯一标志
+          uri: lb://comment #lb(负载平衡)+注册的服务的名称  或是   http://+地址:端口
+          predicates:
+            - Path=/comment/** #判断是否以comment开头
   main:
     web-application-type: reactive
   application:
