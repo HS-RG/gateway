@@ -22,6 +22,10 @@ spring:
           uri: lb://comment #lb(负载平衡)+注册的服务的名称  或是   http://+地址:端口
           predicates:
             - Path=/comment/** #判断是否以comment开头
+        - id: like-service #唯一标志
+          uri: lb://like #lb(负载平衡)+注册的服务的名称  或是   http://+地址:端口
+          predicates:
+            - Path=/like/** #判断是否以like开头
   main:
     web-application-type: reactive
   application:
